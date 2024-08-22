@@ -1,0 +1,60 @@
+﻿@model IEnumerable<QLNSFAHASA.Models.SanPham>
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $('.btn-add-to-cart').click(function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            $.ajax({
+                url: '/SanPhams/AddToCart/' + id,
+                type: 'POST',
+                success: function (result) {
+                    alert('Sản phẩm đã được thêm vào giỏ hàng');
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra, vui lòng thử lại sau');
+                }
+            });
+        });
+    });
+</script>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6">
+            <div class="product">
+                <div class="product-img">
+                    <img src="~/Images/@Html.DisplayFor(modelItem => item.ANH)" alt="Ảnh sản phẩm" width="400" height="400">
+                    <div class="product-label">
+                        <span class="sale">-30%</span>
+                        <span class="new">NEW</span>
+                    </div>
+                </div>
+                <div class="product-body">
+                    <p class="product-category">@Html.DisplayFor(modelItem => item.NCC.TenNCC)</p>
+                    <h3 class="product-name"><a href="#">@Html.DisplayFor(modelItem => item.TenSP)</a></h3>
+                    <h4 class="product-price">
+                        @item.DonGia.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")).Replace(",", ".") VND
+                    </h4>
+                    <div class="product-rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                </div>
+                <div class="add-to-cart">
+                    <button class="add-to-cart-btn" onclick="location.href='@Url.Action("AddToCart", "SanPhams", new { id = item.MaSP })'"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,132 @@
+﻿@using QLNSFAHASA.Models
+@model List<QLNSFAHASA.Models.SanPham>
+@using System.Globalization
+
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal tongtien = 0;
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="~/Images/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Shopping Cart</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="./index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Shoping Cart Section Begin -->
+<section class="shoping-cart spad">
+    <div class="container">
+        @if (Model.Count == 0)
+        {
+            <p class="text-center">Không có sản phẩm nào trong giỏ hàng.</p>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="shoping__product">Sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="shoping__cart__item">
+                                            <img src="~/Images/@item.ANH" alt="" width="60" height="60">
+                                            <h5>@item.TenSP</h5>
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                            @item.DonGia.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")).Replace(",", ".")VND
+                                        </td>
+                                        <td class="shoping__cart__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    <span class="dec qtybtn">-</span>
+                                                    <input type="text" value="1">
+                                                    <span class="inc qtybtn">+</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="shoping__cart__total">
+                                            @item.DonGia.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")).Replace(",", ".")VND
+                                        </td>
+                                        <td class="shoping__cart__item__close">
+                                            <form method="post" action="@Url.Action("RemoveFromCart", "SanPhams", new { id = item.MaSP })">
+                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    tongtien += item.DonGia;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row mt-5">
+            <div class="col-lg-8"></div>
+
+            <div class="col-lg-4">
+                <div class="cart-total">
+                    <h3>Tổng giỏ hàng</h3>
+                    <ul class="list-group">
+                        @foreach (var item in Model)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @item.TenSP
+                                <span>@item.DonGia.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")).Replace(",", ".")VND</span>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between align-items-center font-weight-bold">
+                            Tổng cộng
+                            <span>@tongtien.ToString("N0", CultureInfo.GetCultureInfo("vi-VN")).Replace(",", ".")VND</span>
+                        </li>
+                    </ul>
+                    <a href="#" class="site-btn btn-block mt-3 cart-btn-right"><i class="fa fa-shopping-cart"></i> Cập nhật giỏ hàng</a>
+                    <a href="@Url.Action("Index", "SanPhams")" class="site-btn btn-block mt-3"><i class="fa fa-shopping-bag"></i> Tiếp tục mua hàng</a>
+                    <button type="submit" onclick="location.href='@Url.Action("Create", "HoaDons")'" class="site-btn btn-block mt-3"><i class="fa fa-credit-card"></i> Thanh toán</button>
+                </div>
+            </div>
+        </div>
+
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <div class="shoping__checkout">
+                <h5>Mã giảm giá</h5>
+                <form action="#">
+                    <input type="text" placeholder="Nhập mã giảm giá">
+                    <button type="submit" class="site-btn">Áp dụng mã giảm giá</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- Shoping Cart Section End -->
+
+
+
+
+

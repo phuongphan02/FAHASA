@@ -1,0 +1,72 @@
+﻿@model IEnumerable<QLNSFAHASA.Models.KhachHang>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+
+<h2>Danh sách khách hàng </h2>
+
+@Html.ActionLink("Thêm khách hàng", "Create", null, new { @class = "btn btn-primary", style = "font-size: 16px; padding: 10px 20px; border-radius: 5px; color: #fff; background-color: #007bff; border-color: #007bff;" })
+
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Họ tên KH
+        </th>
+        <th>
+            Địa chỉ KH
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            SĐT
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{i++;}
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTenKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChiKH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatKhau)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("Edit", "KhachHangs", new { id = item.MaKH })'" class="btn btn-warning">Sửa</button>
+                <button type="button" onclick="location.href='@Url.Action("Details", "KhachHangs", new { id = item.MaKH })'" class="btn btn-primary">Chi Tiết</button>
+                <button type="button" onclick="location.href='@Url.Action("Delete", "KhachHangs", new { id = item.MaKH })'" class="btn btn-danger">Xóa</button>
+            </td>
+        </tr>
+    }
+
+</table>

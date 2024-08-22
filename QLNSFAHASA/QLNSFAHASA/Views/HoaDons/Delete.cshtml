@@ -1,0 +1,55 @@
+﻿@model QLNSFAHASA.Models.HoaDon
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3>Bạn có chắc muốn xóa?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ngày lập:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayLap)
+        </dd>
+
+        <dt>
+            Hình thức thanh toán:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanhMucHinhThucThanhToan.LoaiHinhThucTT)
+        </dd>
+
+        <dt>
+            Họ tên khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.HoTenKH)
+        </dd>
+
+        <dt>
+            Họ tên nhân viên:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanVien.HoTenNV)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Quay về", "Index")
+        </div>
+    }
+</div>

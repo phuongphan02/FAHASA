@@ -1,0 +1,102 @@
+﻿@model IEnumerable<QLNSFAHASA.Models.NhanVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string gtinh = "";
+    int i = 0;
+}
+
+<h2>Danh sách nhân viên </h2>
+@Html.ActionLink("Thêm nhân viên", "Create", null, new { @class = "btn btn-primary", style = "font-size: 16px; padding: 10px 20px; border-radius: 5px; color: #fff; background-color: #007bff; border-color: #007bff;" })
+
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Họ tên nhân viên
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Ngày sinh
+        </th>
+        <th>
+            SĐT
+        </th>
+        <th>
+            Lương
+        </th>
+        <th>
+            Chức vụ
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Giới tính
+        </th>
+        <th>
+            Mật khẩu
+        </th>
+        <th>
+            Quyền hạn
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @{i++;}
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTenNV)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Luong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucVu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @{if (item.GioiTinh == true)
+                    { gtinh = "Nam"; }
+                    else
+                    { gtinh = "Nữ"; }
+                }
+                @gtinh
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatKhau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoleUser)
+            </td>
+            <td>
+                <button type="button" onclick="location.href='@Url.Action("Edit", "NhanViens", new { id = item.MaNV })'" class="btn btn-warning">Sửa</button>
+                <button type="button" onclick="location.href='@Url.Action("Details", "NhanViens", new { id = item.MaNV })'" class="btn btn-primary">Chi Tiết</button>
+                <button type="button" onclick="location.href='@Url.Action("Delete", "NhanViens", new { id = item.MaNV })'" class="btn btn-danger">Xóa</button>
+            </td>
+        </tr>
+    }
+
+</table>

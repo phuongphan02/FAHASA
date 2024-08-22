@@ -1,0 +1,50 @@
+﻿@model QLNSFAHASA.Models.HoaDon
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Thông tin chi tiết: </h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ngày lập:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayLap)
+        </dd>
+
+        <dt>
+            Hình thức thanh toán:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DanhMucHinhThucThanhToan.LoaiHinhThucTT)
+        </dd>
+
+        <dt>
+           Họ tên khách hàng:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.HoTenKH)
+        </dd>
+
+        <dt>
+            Họ tên nhân viên:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhanVien.HoTenNV)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaHD }) |
+    @Html.ActionLink("Quay về danh sách", "Index")
+</p>
